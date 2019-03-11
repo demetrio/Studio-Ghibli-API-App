@@ -11,8 +11,15 @@
 
 <body>
     <div id="main">
-        <h1>Studio Ghibli</h1>
-        <input id="search" type="text" onkeyup="filter(this.value)" />
+        <div id="title">
+            <img src="./assets/Studio_Ghibli_logo.svg" id="logoGhibli" alt="Studio Ghibli Logo">
+        </div>
+
+        <div class="search">
+            <input class="search-bar" type="text" placeholder="Search" onkeyup="filter(this.value)">
+            <span class="bottom-line"></span>
+        </div>
+
         <div id="container"></div>
     </div>
     <script async src="script.js"></script>

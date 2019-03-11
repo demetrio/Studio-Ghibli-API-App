@@ -1,19 +1,84 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:400,300,100');
 
+:root {
+    --ghibli-color: #00adef;
+    --blue: #6296ba;
+    --almost-white: #ebfcff;
+}
+
 * {
     box-sizing: border-box;
     margin: 0 auto;
     font-family: 'Roboto';
 }
 
+html {
+    background: var(--ghibli-color);
+}
+
 h1 {
-    color: black;
+    color: var(--almost-white);
     font-weight: 100;
     line-height: 1.1;
     letter-spacing: 0.025em;
     margin: 0;
     padding: 0;
     text-align: center;
+}
+
+:focus {
+    outline: none;
+}
+
+.search {
+    width: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+
+input[type="text"] {
+    color: var(--almost-white);
+    width: 100%;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    background-color: transparent;
+}
+
+.effect-1,
+.search-bar,
+.effect-3 {
+    border: 0;
+    padding: 7px 0;
+    border-bottom: 1px solid #ffffff;
+}
+
+.search-bar~.bottom-line {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #2299cc;
+    transition: 0.4s;
+}
+
+.search-bar:focus~.bottom-line {
+    width: 100%;
+    transition: 0.4s;
+    left: 0;
+}
+
+#title,
+input {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#logoGhibli {
+    fill: white;
 }
 
 .main {
@@ -26,9 +91,10 @@ h1 {
     flex-wrap: wrap;
 }
 
+
 .card {
     margin: 1rem;
-    background: white;
+    color: var(--almost-white);
     border: 1px solid black;
     overflow: hidden;
     transition: all .2s linear;
