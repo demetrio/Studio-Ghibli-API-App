@@ -30,7 +30,6 @@ fetch(myRequest)
         console.error(error);
     });
 
-
 function filter(titleSearched) {
     const cards = document.querySelectorAll('.card');
     search = titleSearched.toLowerCase();
