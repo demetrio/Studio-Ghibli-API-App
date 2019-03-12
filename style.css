@@ -39,7 +39,7 @@ h1 {
 
 
 input[type="text"] {
-    color: var(--almost-white);
+    color: white;
     width: 100%;
     box-sizing: border-box;
     letter-spacing: 1px;
@@ -91,11 +91,10 @@ input {
     flex-wrap: wrap;
 }
 
-
 .card {
     margin: 1rem;
     color: var(--almost-white);
-    border: 1px solid black;
+    border: 1px solid var(--almost-white);
     overflow: hidden;
     transition: all .2s linear;
 }
