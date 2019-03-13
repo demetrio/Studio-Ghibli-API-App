@@ -18,7 +18,7 @@ fetch(myRequest)
             h1.textContent = movie.title;
 
             const p = document.createElement('p');
-            movie.description = movie.description.substring(0, 300);
+            movie.description = movie.description.substring(0, 150);
             p.textContent = `${movie.description}...`;
 
             mainContainer.appendChild(card);
