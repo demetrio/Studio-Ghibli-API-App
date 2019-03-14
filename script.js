@@ -1,3 +1,4 @@
+"use strict";
 const myRequest = new Request('https://ghibliapi.herokuapp.com/films');
 const mainContainer = document.getElementById('container');
 
@@ -30,15 +31,27 @@ fetch(myRequest)
         console.error(error);
     });
 
-function filter(titleSearched) {
+function filter(searchedTitle) {
+    searchedTitle = searchedTitle.toLowerCase();
     const cards = document.querySelectorAll('.card');
-    search = titleSearched.toLowerCase();
-    console.log(search);
+    //console.log(search);
     cards.forEach(card => {
-        let title = card.querySelector('h1').innerText.toLowerCase();
-        console.log(title);
-        card.style.display = title.match(search) ? "block" : "none";
+        const title = card.querySelector('h1').innerText.toLowerCase();
+        //console.log(title);
+        card.style.display = title.match(searchedTitle) ? "block" : "none";
     });
+}
+
+const search = document.querySelector('.search-bar');
+
+search.addEventListener("keyup", function (event) {
+    filter(event.target.value);
+});
+
+
+function show(selectedCard) {
+    const cards = document.querySelectorAll('.card');
+    console.log(cards);
 }
 
 /**
