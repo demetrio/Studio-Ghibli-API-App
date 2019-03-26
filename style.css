@@ -34,10 +34,12 @@ p {
     outline: none;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: white;
-    opacity: 1; /* Firefox */
-  }
+    opacity: 1;
+    /* Firefox */
+}
 
 .search {
     width: 50%;
@@ -104,9 +106,37 @@ input {
 .card {
     margin: 0.5rem;
     color: var(--almost-white);
-    border: 1px solid rgba(235,252,255, 0.25);
+    border: 1px solid rgba(235, 252, 255, 0.25);
     overflow: hidden;
     transition: all .2s linear;
+}
+
+.card--show {
+    margin: 1rem auto;
+    color: var(--almost-white);
+    border: 3px solid rgba(235, 252, 255, 0.25);
+    overflow: hidden;
+    width: 60%;
+
+}
+
+#score, #releaseDate {
+    font-weight: bold;
+    font-style: italic;
+    display: inline;
+}
+
+#score {
+    font-size: 1.75em;
+    float: right;
+    margin-right: 15px;
+
+}
+
+#releaseDate {
+    float: left;
+    bottom: 0;
+    margin-top: 1em;
 }
 
 .card:hover {
@@ -114,7 +144,8 @@ input {
     transform: translate3D(0, -2px, 0);
 }
 
-.card h1 {
+.card h1,
+.card--show h1 {
     margin-bottom: 5px;
     background-color: rgba(255, 255, 255, 0.25);
 }

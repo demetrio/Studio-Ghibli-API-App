@@ -14,6 +14,7 @@ fetch(myRequest)
         response.forEach(movie => {
             const card = document.createElement('div');
             card.setAttribute('class', 'card');
+            card.setAttribute('data-id', movie.id);
 
             const h1 = document.createElement('h1');
             h1.textContent = movie.title;
@@ -28,7 +29,7 @@ fetch(myRequest)
         });
     })
     .catch(error => {
-        console.error(error);
+        console.log.error(error);
     });
 
 function filter(searchedTitle) {
@@ -49,11 +50,65 @@ search.addEventListener("keyup", function (event) {
 });
 
 
-function show(selectedCard) {
-    const cards = document.querySelectorAll('.card');
-    console.log(cards);
+function show(element) {
+    mainContainer.innerHTML = ""
+    search.parentNode.removeChild(search);
+
+    getMovie(element);
 }
 
-/**
+function getMovie(element) {
+    fetch(new Request("https://ghibliapi.herokuapp.com/films/" + element))
+        .then(function (response) {
+            if (response.status === 200) {
+                return response.json();
+            } else {
+                throw new Error('Something went wrong on api server!');
+            }
+        })
+        .then(function (response) {
+            const card = document.createElement('div');
+            
+            card.setAttribute('class', 'card--show');
+            card.setAttribute('data-id', response.id);
+
+            const title = document.createElement('h1');
+            title.textContent = response.title;
+
+            const description = document.createElement('p');
+            description.textContent = response.description;
+
+            const staff = document.createElement('p');
+            staff.setAttribute('id', 'staff');
+            staff.textContent = `Directed by ${response.director} Produced by ${response.producer}`;
+
+            const releaseDate = document.createElement('p');
+            releaseDate.setAttribute('id', 'releaseDate');
+            releaseDate.textContent = `Release date ${response.release_date}`;
+
+            const rtScore = document.createElement('p');
+            rtScore.setAttribute('id', 'score');
+            rtScore.textContent = `${response.rt_score}/100`;
+
+            mainContainer.appendChild(card);
+            card.appendChild(title);
+            card.appendChild(description);
+            card.appendChild(staff);
+            card.appendChild(releaseDate);
+            card.appendChild(rtScore);
+        });
+}
+
+
+mainContainer.addEventListener("click", function (event) {
+    const card = event.target.closest('.card');
+    if (card === null) {
+        return;
+    }
+    show(card.getAttribute('data-id'));
+});
+
+
+/*
  *  Borrar el div que contiene todo y volver a crear la nueva pagina.
  */
