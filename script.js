@@ -1,6 +1,7 @@
 "use strict";
 const myRequest = new Request('https://ghibliapi.herokuapp.com/films');
 const mainContainer = document.getElementById('container');
+const ghibliLogo = document.getElementById('logoGhibli');
 
 function fetchMovieList(request) {
     fetch(request)
@@ -58,7 +59,7 @@ function createCard(movie, show) {
         card.setAttribute('class', 'card');
 
         movie.description = movie.description.substring(0, 150);
-        description.textContent = `${movie.description}...`;
+        description.textContent = `${movie.description}...`; 
     }
     mainContainer.appendChild(card);
 }
@@ -89,13 +90,10 @@ function show(element) {
 }
 
 function comeBack() {
-    const goBack = document.createElement('h1');
-    goBack.setAttribute('id', 'go--back');
-    goBack.textContent =  'VOLVER';
 
-    mainContainer.appendChild(goBack);
-
-    goBack.addEventListener("click", () => {
+    ghibliLogo.setAttribute('id', 'go--back');
+  
+    ghibliLogo.addEventListener("click", () => {
         mainContainer.innerHTML = "";
         search.style.display = "block";
         fetchMovieList(myRequest);
@@ -126,13 +124,7 @@ mainContainer.addEventListener("click", function (event) {
 
 
 
-
 /*
- *  Borrar el div que contiene todo y volver a crear la nueva pagina.
-
-
+    Borrar el div que contiene todo y volver a crear la nueva pagina.
     Create class called hidden, add or remove it.
-
  */
-
-
