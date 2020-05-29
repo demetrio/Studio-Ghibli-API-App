@@ -3,26 +3,32 @@ const myRequest = new Request('https://ghibliapi.herokuapp.com/films');
 const mainContainer = document.getElementById('container');
 const ghibliLogo = document.getElementById('logoGhibli');
 
-function fetchMovieList(request) {
-    fetch(request)
-        .then(function (response) {
-            if (response.status === 200) {
-                return response.json();
-            } else {
-                throw new Error('Something went wrong on api server!');
-            }
-        })
-        .then(function (response) {
-            response.forEach(movie => {
-                createCard(movie, false);
-            });
-        })
-        .catch(error => {
-            console.log.error(error);
-        });
+const ghibliData = [];
+
+async function fetchMovieList(request) {
+    try {
+        const res = await fetch(request);
+        const data  = await res.json()
+        ghibliData.push(...data);
+        return data;
+    }catch(err){
+        throw new Error('Something went wrong on api server!');
+    }
 };
 
-fetchMovieList(myRequest);
+async function renderInfo(){
+
+    if(!ghibliData.length){
+        ghibliData.push(... await fetchMovieList(myRequest));
+    }
+
+    ghibliData.forEach(movie => {
+        createCard(movie, false);
+    });
+}
+
+renderInfo();
+
 
 function createCard(movie, show) {
 
@@ -96,22 +102,20 @@ function comeBack() {
     ghibliLogo.addEventListener("click", () => {
         mainContainer.innerHTML = "";
         search.style.display = "block";
-        fetchMovieList(myRequest);
+        renderInfo();
     });
 }
 
-function renderMovie(element) {
-    fetch(new Request("https://ghibliapi.herokuapp.com/films/" + element))
-        .then(function (response) {
-            if (response.status === 200) {
-                return response.json();
-            } else {
-                throw new Error('Something went wrong on api server!');
-            }
-        })
-        .then(function (response) {
-            createCard(response, true);
-        });
+async function renderMovie(element) {
+
+    try {
+        const res = await fetch(new Request("https://ghibliapi.herokuapp.com/films/" + element));
+        const data  = await res.json()
+        createCard(data, true);
+    }catch(err){
+        throw new Error('Something went wrong on api server!');
+    }
+
 }
 
 mainContainer.addEventListener("click", function (event) {
@@ -121,10 +125,3 @@ mainContainer.addEventListener("click", function (event) {
     }
     show(card.getAttribute('data-id'));
 });
-
-
-
-/*
-    Borrar el div que contiene todo y volver a crear la nueva pagina.
-    Create class called hidden, add or remove it.
- */
