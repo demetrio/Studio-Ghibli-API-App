@@ -1,4 +1,5 @@
 "use strict";
+
 const myRequest = new Request('https://ghibliapi.herokuapp.com/films');
 const mainContainer = document.getElementById('container');
 const ghibliLogo = document.getElementById('logoGhibli');
@@ -9,7 +10,6 @@ async function fetchMovieList(request) {
     try {
         const res = await fetch(request);
         const data  = await res.json()
-        ghibliData.push(...data);
         return data;
     }catch(err){
         throw new Error('Something went wrong on api server!');
@@ -19,7 +19,7 @@ async function fetchMovieList(request) {
 async function renderInfo(){
 
     if(!ghibliData.length){
-        ghibliData.push(... await fetchMovieList(myRequest));
+         ghibliData.push(... await fetchMovieList(myRequest));
     }
 
     ghibliData.forEach(movie => {
@@ -28,7 +28,6 @@ async function renderInfo(){
 }
 
 renderInfo();
-
 
 function createCard(movie, show) {
 
